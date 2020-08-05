@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const generatePromotions =  async () => {
-  return await axios.get(`api/promotion/generatePromotions`)
+  return await axios.post(`api/promotion/generatePromotions`)
   .then(function (result: any) {
     if (result.status === 200) {
       return result.data;

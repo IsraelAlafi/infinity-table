@@ -7,11 +7,11 @@ import {findAndUpdatePromotion, deletePromotion, insertPromotion, clearAllPromot
 
 const router: Router = express.Router();
 
-router.get("/generatePromotions", async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+router.post("/generatePromotions", async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     await clearAllPromotions();
     let promotions: Record<number, IPromotion> = generateData();
-    await insertPromotion(Object.values(promotions)).then((insertResult) => {
+    insertPromotion(Object.values(promotions)).then((insertResult) => {
       if (insertResult) {
         res.send(insertResult);
       }
@@ -25,7 +25,7 @@ router.get("/generatePromotions", async (_req: Request, res: Response, next: Nex
 router.delete("/deletePromotion", async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     let ids: number[] = req.body.data;
-    await deletePromotion(ids).then((isDeleted) => {
+    deletePromotion(ids).then((isDeleted) => {
       if (isDeleted) {
         res.send(req.body);
       } else {
@@ -58,8 +58,8 @@ router.post("/duplicatePromotion", async (req: Request, res: Response, next: Nex
 router.post("/editPromotion", async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     let editablePromotion: Record<number, any> = req.body.data;
-    await findAndUpdatePromotion(editablePromotion).then(async () => {
-      await findPromotion(Object.keys(editablePromotion)).then((editedResults) => {
+    findAndUpdatePromotion(editablePromotion).then(async () => {
+      findPromotion(Object.keys(editablePromotion)).then((editedResults) => {
         res.send(editedResults);
       });
 

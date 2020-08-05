@@ -43,11 +43,6 @@ export class ScrollList extends React.Component<Props, State> {
       <div className="table-body" ref={this.lazyscroll} onScroll={this.onScroll} >
         <div className="container" style={{height: this.props.dataIds.length * this.props.itemHeight}}>
           {(this.props.generateListElementFunc(this.state.start, this.state.end))}
-            {/* {this.props.dataIds.map((id: string, index: number) => {
-              //if (element.index >= this.state.start && element.index <= this.state.end) {
-                    return (this.props.generateListElementFunc(this.state.start, this.state.end))
-              //    }       
-              })};         */}
           </div>
       </div>
       )

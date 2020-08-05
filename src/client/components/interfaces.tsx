@@ -1,4 +1,3 @@
-import {ListItem} from './listItem/index'
 
 export interface DataElement {
   index: number;

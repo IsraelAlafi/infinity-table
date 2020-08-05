@@ -1,6 +1,4 @@
 import React from "react";
-import {DataElement} from '../interfaces'
-import { callbackify } from "util";
 
 interface Props {
   itemHeight: number;

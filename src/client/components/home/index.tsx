@@ -12,6 +12,7 @@ interface State {
   selectedRowsIds: string[];
   editPromotionData: Record<number, Promotion>
   isEditable: boolean;
+  isGenerateBtnClicked: boolean;
 }
 
 interface Props {}
@@ -27,12 +28,19 @@ export class Home extends React.Component<Props, State> {
       selectedRowsIds: [],
       editPromotionData: {},
       isEditable: false,
+      isGenerateBtnClicked: false
     };
   }
   
+  onGettingTableData = async (promotionsData) => {
+    this.promotionsData = promotionsData;
+    this.setState({promotionIds: Object.keys(this.promotionsData),
+                   isGenerateBtnClicked: false});
+  }
+
   onGenerateTable = async () => {
-    this.promotionsData = await generatePromotions();
-    this.setState({promotionIds: Object.keys(this.promotionsData)});
+    this.setState({isGenerateBtnClicked: true});
+    await generatePromotions().then((data) => this.onGettingTableData(data));
   }
 
   onEditRow = () => {
@@ -112,7 +120,13 @@ export class Home extends React.Component<Props, State> {
           <div className="actions">
             <label>Actions: </label> 
               <Nav className="drop-down-action">
-                    <Button className="generate-table-btn" onClick={this.onGenerateTable} >Generate Table</Button>
+                    { this.state.isGenerateBtnClicked &&
+                    <Button className="btn btn-primary" type="button" disabled>
+                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      {` Loading...`}
+                    </Button>
+                    }
+                    {!this.state.isGenerateBtnClicked && <Button className="generate-table-btn" onClick={this.onGenerateTable} >Generate Table</Button> }
                     {!this.state.isEditable && 
                     <NavDropdown title="Table Action"  id="nav-dropdown" disabled={this.state.selectedRowsIds.length == 0}>
                       <NavDropdown.Item onClick={this.onEditRow}>Edit</NavDropdown.Item>

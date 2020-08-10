@@ -40,7 +40,7 @@ export class Home extends React.Component<Props, State> {
 
   onGenerateTable = async () => {
     this.setState({isGenerateBtnClicked: true});
-    await generatePromotions().then((data) => this.onGettingTableData(data));
+    generatePromotions().then((data) => this.onGettingTableData(data));
   }
 
   onEditRow = () => {

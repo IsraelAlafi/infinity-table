@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const generatePromotions =  async () => {
-  return await axios.post(`api/promotion/generatePromotions`)
+  return axios.post(`api/promotion/generatePromotions`)
   .then(function (result: any) {
     if (result.status === 200) {
       return result.data;
@@ -14,7 +14,7 @@ export const generatePromotions =  async () => {
 }
 
 export const deletePromotion =  async (data: any) => {
-  return await axios.delete(`api/promotion/deletePromotion` , {data})
+  return axios.delete(`api/promotion/deletePromotion` , {data})
   .then(function (result: any) {
     if (result.status === 200) {
       return result.data;
@@ -27,7 +27,7 @@ export const deletePromotion =  async (data: any) => {
 }
 
 export const editPromotion =  async (data: any) => {
-  return await axios.post(`api/promotion/editPromotion` , {data})
+  return axios.post(`api/promotion/editPromotion` , {data})
   .then(function (result: any) {
     if (result.status === 200) {
       return result.data;
@@ -40,7 +40,7 @@ export const editPromotion =  async (data: any) => {
 }
 
 export const duplicatePromotion =  async (data: any) => {
-  return await axios.post(`api/promotion/duplicatePromotion` , {data})
+  return axios.post(`api/promotion/duplicatePromotion` , {data})
   .then(function (result: any) {
     if (result.status === 200) {
       return result.data;
